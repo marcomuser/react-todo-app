@@ -1,0 +1,1 @@
+This is a learning project, building a simple to-do app and thereby creating a clean set-up with Express, MongoDB and React.
