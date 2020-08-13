@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const todoSchema = new Schema({
   content: String,
-  date: String,
+  date: Date,
 });
 
 const Todo = mongoose.model("Post", todoSchema);
