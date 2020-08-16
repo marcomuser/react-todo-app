@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 const Todo = require("../models/Todo");
 
-/* GET home page. */
 router.get("/", async (req, res) => {
   try {
     const todoItems = await Todo.find();
@@ -30,6 +29,7 @@ router.delete("/:id", async (req, res) => {
     const todoList = await Todo.findByIdAndDelete(req.params.id);
     res.status(200).json(todoList);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 })

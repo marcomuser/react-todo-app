@@ -6,5 +6,5 @@ const todoSchema = new Schema({
   date: Date,
 });
 
-const Todo = mongoose.model("Post", todoSchema);
+const Todo = mongoose.model("Todo", todoSchema);
 module.exports = Todo;
