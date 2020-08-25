@@ -1,5 +1,5 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 const Todo = require("../models/Todo");
 
 router.get("/", async (req, res) => {
@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
   try {
     const { content } = req.body;
     const date = Date.now();
-    const todoItem = await Todo.create({content, date});
+    const todoItem = await Todo.create({ content, date });
     res.status(200).json(todoItem);
   } catch (err) {
     console.log(err);
@@ -32,6 +32,6 @@ router.delete("/:id", async (req, res) => {
     console.log(err);
     res.status(500).json(err);
   }
-})
+});
 
 module.exports = router;
