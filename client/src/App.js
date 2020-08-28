@@ -3,13 +3,16 @@ import "./App.css";
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch("/api");
         const data = await response.json();
         setTodos(data);
+        setIsLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -24,7 +27,7 @@ function App() {
   return (
     <>
       <h2>TO-DO List</h2>
-      {todos.length === 0 ? <p>Add your first to-do item</p> : <ul>{todoList}</ul>}
+      {isLoading ? <p>Loading...</p> : <ul>{todoList}</ul>}
     </>
   );
 }
