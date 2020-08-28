@@ -4,8 +4,21 @@ import "./App.css";
 function App() {
   const [todos, setTodos] = useState([]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api");
+        const data = await response.json();
+        setTodos(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
+
   const todoList = todos.map((todo) => {
-    return <li>{todo}</li>;
+    return <li key={todo._id}>{todo.content}</li>;
   });
 
   return (
