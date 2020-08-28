@@ -9,12 +9,10 @@ function App() {
   });
 
   return (
-    <div>
+    <>
       <h2>TO-DO List</h2>
-      <ul>
-        {todos.length === 0 ? <p>Add your first to-do item</p> : todoList}
-      </ul>
-    </div>
+      {todos.length === 0 ? <p>Add your first to-do item</p> : <ul>{todoList}</ul>}
+    </>
   );
 }
 
