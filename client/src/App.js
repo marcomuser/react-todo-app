@@ -4,6 +4,7 @@ import "./App.css";
 function App() {
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,7 +15,7 @@ function App() {
         setTodos(data);
         setIsLoading(false);
       } catch (err) {
-        console.log(err);
+        setIsError(true);
       }
     };
     fetchData();
@@ -27,6 +28,7 @@ function App() {
   return (
     <>
       <h2>TO-DO List</h2>
+      {isError && <p>Something went wrong...</p>}
       {isLoading ? <p>Loading...</p> : <ul>{todoList}</ul>}
     </>
   );
