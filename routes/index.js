@@ -26,8 +26,8 @@ router.post("/", async (req, res, next) => {
 
 router.delete("/:id", async (req, res, next) => {
   try {
-    const todoList = await Todo.findByIdAndDelete(req.params.id);
-    res.status(200).json(todoList);
+    const deleted = await Todo.findByIdAndDelete(req.params.id);
+    res.status(200).json(deleted);
   } catch (err) {
     res.status(500).json(err);
     next(err);

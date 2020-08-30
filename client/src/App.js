@@ -38,8 +38,31 @@ function App() {
     }
   };
 
+  const handleCheckbox = async () => {
+    console.log("checked");
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`/api/${id}`, {
+        method: "DELETE",
+      });
+      const data = await response.json();
+      const newList = todos.filter((todo) => todo._id !== data._id);
+      setTodos(newList);
+    } catch (err) {
+      setIsError(true);
+    }
+  };
+
   const todoList = todos.map((todo) => {
-    return <li key={todo._id}>{todo.content}</li>;
+    return (
+      <div key={todo._id}>
+        <input type="checkbox" onClick={handleCheckbox} />
+        <p>{todo.content}</p>
+        <button onClick={() => handleDelete(todo._id)}>Delete</button>
+      </div>
+    );
   });
 
   return (
@@ -54,7 +77,7 @@ function App() {
         <button type="submit">Add</button>
       </form>
       {isError && <p>Something went wrong...</p>}
-      {isLoading ? <p>Loading...</p> : <ul>{todoList}</ul>}
+      {isLoading ? <p>Loading...</p> : <div>{todoList}</div>}
     </>
   );
 }
