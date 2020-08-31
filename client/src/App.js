@@ -41,15 +41,14 @@ function App() {
   const handleCheckbox = async (id) => {
     const index = todos.findIndex((todo) => todo._id === id);
     const status = todos[index].completed;
-    const response = await fetch(`/api/${id}`, {
+    const newList = [...todos];
+    newList[index].completed = !status;
+    setTodos(newList);
+    await fetch(`/api/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ todoStatus: !status }),
     });
-    const updatedTodo = await response.json();
-    const newList = [...todos];
-    newList[index] = updatedTodo;
-    setTodos(newList);
   };
 
   const handleDelete = async (id) => {
