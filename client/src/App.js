@@ -40,12 +40,16 @@ function App() {
 
   const handleCheckbox = async (id) => {
     const index = todos.findIndex((todo) => todo._id === id);
-    todos[index].completed = !todos[index].completed;
-    await fetch(`/api/${id}`, {
+    const status = todos[index].completed;
+    const response = await fetch(`/api/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ todoStatus: todos[index].completed }),
+      body: JSON.stringify({ todoStatus: !status }),
     });
+    const updatedTodo = await response.json();
+    const newList = [...todos];
+    newList[index] = updatedTodo;
+    setTodos(newList);
   };
 
   const handleDelete = async (id) => {
@@ -64,7 +68,11 @@ function App() {
   const todoList = todos.map((todo) => {
     return (
       <div key={todo._id}>
-        <input type="checkbox" onChange={() => handleCheckbox(todo._id)} defaultChecked={todo.completed ? "checked" : ""} />
+        <input
+          type="checkbox"
+          onChange={() => handleCheckbox(todo._id)}
+          checked={todo.completed ? "checked" : ""}
+        />
         <p>{todo.content}</p>
         <button onClick={() => handleDelete(todo._id)}>Delete</button>
       </div>
