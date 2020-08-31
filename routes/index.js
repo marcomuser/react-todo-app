@@ -24,6 +24,23 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.patch("/:id", async (req, res, next) => {
+  try {
+    const { todoStatus } = req.body;
+    const updated = await Todo.findByIdAndUpdate(
+      req.params.id,
+      {
+        completed: todoStatus,
+      },
+      { new: true }
+    );
+    res.status(200).json(updated);
+  } catch (err) {
+    res.status(500).json(err);
+    next(err);
+  }
+});
+
 router.delete("/:id", async (req, res, next) => {
   try {
     const deleted = await Todo.findByIdAndDelete(req.params.id);

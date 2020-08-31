@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 
 mongoose
   .set("useUnifiedTopology", true)
+  .set('useFindAndModify', false)
   .connect(process.env.MONGODB_URI || "mongodb://localhost/react-todo-app", {
     useNewUrlParser: true,
   })

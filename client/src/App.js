@@ -38,8 +38,14 @@ function App() {
     }
   };
 
-  const handleCheckbox = async () => {
-    console.log("checked");
+  const handleCheckbox = async (id) => {
+    const index = todos.findIndex((todo) => todo._id === id);
+    todos[index].completed = !todos[index].completed;
+    await fetch(`/api/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ todoStatus: todos[index].completed }),
+    });
   };
 
   const handleDelete = async (id) => {
@@ -58,7 +64,7 @@ function App() {
   const todoList = todos.map((todo) => {
     return (
       <div key={todo._id}>
-        <input type="checkbox" onClick={handleCheckbox} />
+        <input type="checkbox" onClick={() => handleCheckbox(todo._id)} defaultChecked={todo.completed ? "checked" : ""} />
         <p>{todo.content}</p>
         <button onClick={() => handleDelete(todo._id)}>Delete</button>
       </div>
@@ -76,8 +82,8 @@ function App() {
         />
         <button type="submit">Add</button>
       </form>
-      {isError && <p>Something went wrong...</p>}
       {isLoading ? <p>Loading...</p> : <div>{todoList}</div>}
+      {isError && <p>Something went wrong. Try reloading the page!</p>}
     </>
   );
 }
