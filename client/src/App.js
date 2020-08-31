@@ -64,7 +64,7 @@ function App() {
   const todoList = todos.map((todo) => {
     return (
       <div key={todo._id}>
-        <input type="checkbox" onClick={() => handleCheckbox(todo._id)} defaultChecked={todo.completed ? "checked" : ""} />
+        <input type="checkbox" onChange={() => handleCheckbox(todo._id)} defaultChecked={todo.completed ? "checked" : ""} />
         <p>{todo.content}</p>
         <button onClick={() => handleDelete(todo._id)}>Delete</button>
       </div>
@@ -73,7 +73,7 @@ function App() {
 
   return (
     <>
-      <h2>TO-DO List</h2>
+      <h1>TO-DO List</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
