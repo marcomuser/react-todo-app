@@ -70,7 +70,7 @@ function App() {
 
   const todoList = todos.map((todo) => {
     return (
-      <div key={todo._id}>
+      <div className="todo-item" key={todo._id}>
         <input
           type="checkbox"
           onChange={() => handleCheckbox(todo._id)}
@@ -101,7 +101,7 @@ function App() {
         />
         <button type="submit">Add</button>
       </form>
-      {isLoading ? <p>Loading...</p> : <div>{todoList}</div>}
+      {isLoading ? <p>Loading...</p> : <div className="todos-wrapper">{todoList}</div>}
       {isError && <p>Something went wrong. Try reloading the page!</p>}
     </>
   );
