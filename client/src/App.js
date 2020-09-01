@@ -15,7 +15,7 @@ function App() {
         const data = await response.json();
         setTodos(data);
         setIsLoading(false);
-      } catch (err) {
+      } catch {
         setIsError(true);
       }
     };
@@ -33,7 +33,7 @@ function App() {
       const result = await response.json();
       setTodos((prevArr) => [...prevArr, result]);
       setFormInput("");
-    } catch (err) {
+    } catch {
       setIsError(true);
     }
   };
@@ -44,11 +44,15 @@ function App() {
     const newList = [...todos];
     newList[index].completed = !status;
     setTodos(newList);
-    await fetch(`/api/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ todoStatus: !status }),
-    });
+    try {
+      await fetch(`/api/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ todoStatus: !status }),
+      });
+    } catch {
+      setIsError(true);
+    }
   };
 
   const handleDelete = async (id) => {
@@ -59,7 +63,7 @@ function App() {
       const data = await response.json();
       const newList = todos.filter((todo) => todo._id !== data._id);
       setTodos(newList);
-    } catch (err) {
+    } catch {
       setIsError(true);
     }
   };
