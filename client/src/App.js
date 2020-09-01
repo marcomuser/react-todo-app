@@ -76,7 +76,15 @@ function App() {
           onChange={() => handleCheckbox(todo._id)}
           checked={todo.completed ? "checked" : ""}
         />
-        <p>{todo.content}</p>
+        <p
+          style={
+            todo.completed
+              ? { textDecoration: "line-through" }
+              : { textDecoration: "none" }
+          }
+        >
+          {todo.content}
+        </p>
         <button onClick={() => handleDelete(todo._id)}>Delete</button>
       </div>
     );
