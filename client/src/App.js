@@ -46,7 +46,7 @@ function App() {
     setTodos(newList);
     try {
       await fetch(`/api/${id}`, {
-        method: "PATCH",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ todoStatus: !status }),
       });
